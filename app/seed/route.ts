@@ -113,8 +113,13 @@ export async function GET() {
     });
 
     return Response.json({ message: 'Database seeded successfully' });
-  } catch (error) {
-    return Response.json({ error: error.message }, { status: 500 });
   }
+  catch (error) {
+    if (error instanceof Error) {
+      return Response.json({ error: error.message }, { status: 500 });
+    }
+    return Response.json({ error: 'Unknown error occurred' }, { status: 500 });
+  }
+
 }
 
